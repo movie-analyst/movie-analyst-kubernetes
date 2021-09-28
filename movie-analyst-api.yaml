@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: movie-analyst-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: movie-analyst-api
+  template:
+    metadata:
+      labels:
+        app: movie-analyst-api
+    spec:
+      containers:
+        - name: movie-analyst-api
+          image: juancastaneda20/movie-analyst-api:master4b67dfbcc332da9e3a2a4b4d14e939290005eeab
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DB_HOST
+              value: "mysql"
+            - name: DB_USER
+              value: "root"
+            - name: DB_PASS
+              value: "password"
+            - name: DB_NAME
+              value: "ma_db"
+      #     valueFrom:
+      #       secretKeyRef:
+      #         name: SECRET_NAME
+      #         key: NAME_VALUE_IN_SECRET
+      # imagePullSecrets:
+      #   - name: docker-credentials
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: movie-analyst-api
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+
