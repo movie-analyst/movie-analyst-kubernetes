@@ -22,19 +22,25 @@ spec:
             - containerPort: 3000
           env:
             - name: DB_HOST
-              value: "mysql"
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: host
             - name: DB_USER
-              value: "root"
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: username
             - name: DB_PASS
-              value: "password"
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: password
             - name: DB_NAME
-              value: "ma_db"
-      #     valueFrom:
-      #       secretKeyRef:
-      #         name: SECRET_NAME
-      #         key: NAME_VALUE_IN_SECRET
-      # imagePullSecrets:
-      #   - name: docker-credentials
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: name
 ---
 apiVersion: v1
 kind: Service
