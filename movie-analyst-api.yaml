@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: movie-analyst-api
-          image: juancastaneda20/movie-analyst-api:master4b67dfbcc332da9e3a2a4b4d14e939290005eeab
+          image: juancastaneda20/movie-analyst-api:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
